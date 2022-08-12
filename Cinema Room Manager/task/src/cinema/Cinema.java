@@ -1,48 +1,108 @@
 package cinema;
+
 import java.util.Scanner;
 
-public class Cinema {
+public class Cinema{
+    static int rowNum;
+    static int seatNum;
+    static char[][] cinemaHall;
 
     public static void main(String[] args) {
-        System.out.print("Cinema:\n");
-        System.out.print("  ");
-        int seats = 9;
-        for (int j = 1; j < seats; j++) {
-            System.out.print(j + " ");
-        }
-        System.out.println("");
-
-        int rows = 8;
-        String s = " S S S S S S S S";
-        for (int i = 1; i < rows; i++) {
-            System.out.println(i + s);
-        }
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of rows:");
-        int numRows = scanner.nextInt();
-
+        int rows = scanner.nextInt();
         System.out.println("Enter the number of seats in each row:");
-        int numSeats = scanner.nextInt();
+        int seats = scanner.nextInt();
+        cinemaHall = new char[rows+1][seats+1];
 
-        if (numRows >= 1 && numRows <= 9 && numSeats >= 1 && numSeats <= 9) {
-            int totalSeats = numRows * numSeats;
-            if (totalSeats <= 60) {
-                int profitOfSmallRoom = totalSeats * 10;
-                System.out.println("Total income:");
-                System.out.print("$" + profitOfSmallRoom);
-            } else if (totalSeats > 60 && numRows % 2 == 0) {
-                int frontRow = numRows / 2;
-                int backRow = numRows / 2;
-                int totalIncome = frontRow * numSeats * 10 + backRow * numSeats * 8;
-                System.out.println("Total income:");
-                System.out.println("$" + totalIncome);
-            } else if (numRows % 2 == 1) {
-                int frontRow = numRows / 2;
-                int backRow = (numRows / 2) + 1;
-                int totalIncome = frontRow * numSeats * 10 + backRow * numSeats * 8;
-                System.out.println("Total income:");
-                System.out.println("$" + totalIncome);
+        System.out.println("Cinema:");
+        char count = '1';
+
+        for (int i = 0; i <= rows; i++) {
+            for (int j = 0; j <= seats; j++) {
+                if(cinemaHall[i][j]!='B'){
+                    cinemaHall[i][j] = 'S';
+                }
             }
         }
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 1; j <= seats; j++) {
+                cinemaHall[0][j] = count;
+                count++;
+            }
+            count = '1';
+        }
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 0; j < 1; j++) {
+                cinemaHall[i][j] = count;
+                count++;
+            }
+        }
+
+
+        char b = 'B';
+        cinemaHall[rowNum][seatNum] = b;
+        cinemaHall[0][0] = ' ';
+        for (int i = 0; i <= rows; i++) {
+            for (int j = 0; j <= seats; j++) {
+                System.out.print(cinemaHall[i][j] + " ");
+            } System.out.println();
+        }
+
+        System.out.println("Enter a row number:");
+        int rowNum1 = scanner.nextInt();
+        rowNum = rowNum1;
+        System.out.println("Enter a seat number in that row:");
+        int seatNum1 = scanner.nextInt();
+        seatNum = seatNum1;
+
+        int first = rows / 2;
+        int ticketPrice = 0;
+
+        if (rows * seats < 60) {
+            ticketPrice = 10;
+        } else if (rowNum <= first) {
+            ticketPrice = 10;
+        } else {
+            ticketPrice = 8;
+        }
+
+        System.out.println("Cinema:");
+        char count2 = '1';
+
+        for (int i = 0; i <= rows; i++) {
+            for (int j = 0; j <= seats; j++) {
+                if(cinemaHall[i][j]!='B'){
+                    cinemaHall[i][j] = 'S';
+                }
+            }
+        }
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 1; j <= seats; j++) {
+                cinemaHall[0][j] = count2;
+                count2++;
+            }
+            count2 = '1';
+        }
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 0; j < 1; j++) {
+                cinemaHall[i][j] = count2;
+                count2++;
+
+            }
+        }
+
+        char b2 = 'B';
+        cinemaHall[rowNum][seatNum] = b2;
+        cinemaHall[0][0] = ' ';
+        for (int i = 0; i <= rows; i++) {
+            for (int j = 0; j <= seats; j++) {
+                System.out.print(cinemaHall[i][j] + " ");
+            } System.out.println();
+        }
+        System.out.println("Ticket price: $" + ticketPrice);
+        System.out.println();
     }
 }
